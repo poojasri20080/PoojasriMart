@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoojaMart - Online Toy Store</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; }
+        header { background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .logo { font-size: 1.5rem; font-weight: bold; color: #f39c12; }
+        .cart-btn { background: #e67e22; border: none; color: white; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .hero { text-align: center; margin-bottom: 2rem; }
+        .hero h1 { color: #2c3e50; margin-bottom: 0.5rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; padding: 1rem; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+        .card h3 { margin: 0.8rem 0 0.4rem; color: #2c3e50; }
+        .card .price { color: #27ae60; font-size: 1.2rem; font-weight: bold; margin-bottom: 0.8rem; }
+        .card button { background: #3498db; color: white; border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        .card button:hover { background: #2980b9; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 90%; position: relative; }
+        .cart-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .total { font-size: 1.2rem; font-weight: bold; text-align: right; margin-top: 1rem; color: #2c3e50; }
+        .checkout-btn { background: #27ae60; color: white; border: none; width: 100%; padding: 0.8rem; border-radius: 5px; margin-top: 1rem; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .close-btn { background: #e74c3c; color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; position: absolute; top: 15px; right: 15px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🧸 PoojaMart Toys</div>
+        <button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Welcome to PoojaMart Kids World</h1>
+            <p>Explore & Order Best Toys Online!</p>
+        </div>
+
+        <div class="grid" id="product-list"></div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeCart()">X</button>
+            <h2>Shopping Cart</h2>
+            <div id="cart-items" style="margin-top: 1rem;"></div>
+            <div class="total">Total: ₹<span id="total-price">0</span></div>
+            <button class="checkout-btn" onclick="placeOrder()">Place Order Now 🎉</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "Remote Control Car", price: 899, img: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=400" },
+            { id: 2, name: "Teddy Bear Soft Toy", price: 499, img: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=400" },
+            { id: 3, name: "Building Blocks", price: 650, img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400" },
+            { id: 4, name: "Kids Musical Piano", price: 1200, img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=400" }
+        ];
+
+        let cart = [];
+
+        function renderProducts() {
+            const list = document.getElementById('product-list');
+            list.innerHTML = products.map(p => `
+                <div class="card">
+                    <img src="${p.img}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <div class="price">₹${p.price}</div>
+                    <button onclick="addToCart(${p.id})">Add to Cart</button>
+                </div>
+            `).join('');
+        }
+
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            cart.push(item);
+            updateCart();
+            alert(`${item.name} added to cart!`);
+        }
+
+        function updateCart() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const cartItems = document.getElementById('cart-items');
+            if(cart.length === 0) {
+                cartItems.innerHTML = "<p>Cart is empty!</p>";
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>₹${item.price}</span>
+                    </div>
+                `).join('');
+            }
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('total-price').innerText = total;
+        }
+
+        function openCart() {
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        function placeOrder() {
+            if(cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+            alert("🎉 Order Placed Successfully! Thank you for shopping at PoojaMart.");
+            cart = [];
+            updateCart();
+            closeCart();
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="search-wrapper">
+                <form class="search-form" id="global-search-form">
+                    <input type="text" id="global-search-input" class="search-input" placeholder="Search for toys, brands, categories..." autocomplete="off">
+                    <button type="submit" class="search-btn">🔍</button>
+                </form>
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div id="header-auth-container">
+                    <a href="login.html" class="nav-link-btn">Login</a>
+                </div>
+
+                <a href="cart.html" class="nav-item-link">
+                    <div class="cart-icon-wrapper">
+                        <span>🛒 Cart</span>
+                        <span class="cart-badge" style="display:none;">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" style="margin: 20px auto; max-width: 950px;">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span class="current">My Orders</span>
+        </nav>
+
+        <h1 style="font-size: 20px; font-weight: 700; margin-bottom: 16px;">My Orders & Tracking</h1>
+
+        <!-- Empty Orders View -->
+        <div id="empty-orders-view" style="display:none; background:#fff; padding:60px 20px; text-align:center; border-radius:4px; box-shadow:0 1px 4px rgba(0,0,0,0.08);">
+            <div style="font-size: 60px; margin-bottom: 14px;">📦</div>
+            <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">No Orders Placed Yet!</h2>
+            <p style="color: #878787; font-size: 14px; margin-bottom: 20px;">You haven't ordered any toys yet. Start shopping now!</p>
+            <a href="products.html" class="btn btn-primary">Browse Toys ➔</a>
+        </div>
+
+        <!-- Orders List Container -->
+        <div id="orders-list-container">
+            <div style="padding: 40px; text-align: center; color: #878787;">Loading your orders...</div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/orders.js"></script>
+</body>
+</html>

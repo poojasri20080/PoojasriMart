@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Toys Collection - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .catalog-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+            margin: 20px auto;
+        }
+
+        .filter-sidebar {
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-subtle);
+            padding: 20px;
+            height: fit-content;
+        }
+
+        .filter-section {
+            border-bottom: 1px solid #f0f0f0;
+            padding: 16px 0;
+        }
+
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+
+        .filter-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .filter-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #444;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .filter-radio-label:hover {
+            color: var(--primary-blue);
+        }
+
+        .sort-bar {
+            background: #ffffff;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-subtle);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .sort-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .sort-tab {
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+        }
+
+        .sort-tab.active {
+            color: var(--primary-blue);
+            font-weight: 700;
+            border-bottom-color: var(--primary-blue);
+        }
+
+        @media (max-width: 900px) {
+            .catalog-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="search-wrapper">
+                <form class="search-form" id="global-search-form">
+                    <input type="text" id="global-search-input" class="search-input" placeholder="Search for toys, brands, categories..." autocomplete="off">
+                    <button type="submit" class="search-btn">🔍</button>
+                </form>
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div id="header-auth-container">
+                    <a href="login.html" class="nav-link-btn">Login</a>
+                </div>
+
+                <a href="cart.html" class="nav-item-link">
+                    <div class="cart-icon-wrapper">
+                        <span>🛒 Cart</span>
+                        <span class="cart-badge" style="display:none;">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span class="current">Toys Catalog</span>
+        </nav>
+
+        <div class="catalog-container">
+            <!-- Left Filter Sidebar -->
+            <aside class="filter-sidebar">
+                <div class="filter-title" style="font-size:16px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    <span>Filters</span>
+                    <button class="btn btn-outline btn-sm" onclick="clearAllFilters()" style="padding:2px 8px;font-size:11px;">CLEAR ALL</button>
+                </div>
+
+                <!-- Categories Filter -->
+                <div class="filter-section">
+                    <div class="filter-title">Categories</div>
+                    <div id="category-filter-list">
+                        <!-- Loaded by JS -->
+                    </div>
+                </div>
+
+                <!-- Price Range Filter -->
+                <div class="filter-section">
+                    <div class="filter-title">Price Range</div>
+                    <label class="filter-radio-label">
+                        <input type="radio" name="priceFilter" value="all" checked onchange="filterByPrice(null, null)">
+                        All Prices
+                    </label>
+                    <label class="filter-radio-label">
+                        <input type="radio" name="priceFilter" value="p1" onchange="filterByPrice(null, 500)">
+                        Under ₹500
+                    </label>
+                    <label class="filter-radio-label">
+                        <input type="radio" name="priceFilter" value="p2" onchange="filterByPrice(500, 1000)">
+                        ₹500 - ₹1,000
+                    </label>
+                    <label class="filter-radio-label">
+                        <input type="radio" name="priceFilter" value="p3" onchange="filterByPrice(1000, 2000)">
+                        ₹1,000 - ₹2,000
+                    </label>
+                    <label class="filter-radio-label">
+                        <input type="radio" name="priceFilter" value="p4" onchange="filterByPrice(2000, null)">
+                        Above ₹2,000
+                    </label>
+                </div>
+
+                <!-- Assured & Certified Badge -->
+                <div class="filter-section">
+                    <div class="filter-title">Quality Assurance</div>
+                    <div style="font-size:13px;color:#555;line-height:1.4;">
+                        <span class="fa-badge" style="margin-left:0;margin-bottom:6px;display:inline-block;">✓ Assured</span>
+                        <p style="font-size:12px;color:#878787;margin-top:4px;">All toys undergo rigorous non-toxic safety and durability testing before dispatch.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Products Section -->
+            <section>
+                <!-- Sorting Bar -->
+                <div class="sort-bar">
+                    <span class="sort-label">Sort By:</span>
+                    <span class="sort-tab active" data-sort="newest" onclick="changeSort('newest')">Newest First</span>
+                    <span class="sort-tab" data-sort="popularity" onclick="changeSort('popularity')">Popularity</span>
+                    <span class="sort-tab" data-sort="price_asc" onclick="changeSort('price_asc')">Price -- Low to High</span>
+                    <span class="sort-tab" data-sort="price_desc" onclick="changeSort('price_desc')">Price -- High to Low</span>
+                    <span id="products-count-label" style="margin-left:auto;font-size:12px;color:#878787;"></span>
+                </div>
+
+                <h1 id="catalog-header-title" style="font-size:18px;font-weight:700;margin-bottom:16px;">All Toys Collection</h1>
+
+                <!-- Products Grid (50+ toys) -->
+                <div class="products-grid" id="catalog-products-grid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

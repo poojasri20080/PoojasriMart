@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .auth-wrapper {
+            max-width: 850px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            overflow: hidden;
+            min-height: 480px;
+        }
+
+        .auth-left-banner {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .auth-left-banner h2 {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 14px;
+        }
+
+        .auth-left-banner p {
+            font-size: 15px;
+            color: #dbe4f0;
+            line-height: 1.5;
+        }
+
+        .auth-right-form {
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-input-group {
+            margin-bottom: 20px;
+        }
+
+        .auth-input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .auth-input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        .terms-note {
+            font-size: 12px;
+            color: #878787;
+            margin: 16px 0;
+            line-height: 1.4;
+        }
+
+        .demo-credentials-box {
+            background: #f8f9fa;
+            border: 1px dashed #ced4da;
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .auth-left-banner {
+                padding: 24px;
+            }
+            .auth-right-form {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+            <div style="margin-left:auto;">
+                <a href="index.html" class="nav-item-link" style="font-size:13px;">Back to Shop</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="auth-wrapper">
+            <!-- Left Blue Panel (Explicit Welcome Requirement) -->
+            <div class="auth-left-banner">
+                <div>
+                    <h2>Welcome to PoojaMart Toys</h2>
+                    <p>Get access to your Orders, Wishlist, Special Offers, and Realistic Toys Collection.</p>
+                </div>
+                <div style="font-size: 64px; text-align: center; margin-top: 30px;">
+                    🧸🏎️🎮
+                </div>
+            </div>
+
+            <!-- Right Login Form -->
+            <div class="auth-right-form">
+                <div id="login-error-msg" style="display:none;background:#ffebee;color:#c62828;padding:10px 14px;border-radius:4px;font-size:13px;margin-bottom:16px;"></div>
+
+                <form id="login-form">
+                    <div class="auth-input-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" class="auth-input" placeholder="Enter your email" required autofocus>
+                    </div>
+
+                    <div class="auth-input-group">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <label for="login-password" style="margin:0;">Password</label>
+                            <a href="javascript:void(0)" onclick="handleForgotPassword()" style="font-size:12px;color:var(--primary-blue);font-weight:600;">Forgot?</a>
+                        </div>
+                        <input type="password" id="login-password" class="auth-input" placeholder="Enter your password" required>
+                    </div>
+
+                    <p class="terms-note">
+                        By continuing, you agree to PoojaMart Toys's Terms of Use and Privacy Policy.
+                    </p>
+
+                    <button type="submit" id="login-submit-btn" class="btn btn-buy btn-block" style="padding:12px;font-size:15px;">
+                        Login
+                    </button>
+                </form>
+
+                <div style="margin-top:20px;text-align:center;">
+                    <a href="register.html" style="color:var(--primary-blue);font-size:14px;font-weight:600;">
+                        New to PoojaMart Toys? Create an account ➔
+                    </a>
+                </div>
+
+                <!-- Quick Demo Fill Helpers -->
+                <div class="demo-credentials-box">
+                    <strong>Demo Accounts:</strong>
+                    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+                        <button type="button" class="btn btn-sm btn-outline" onclick="fillDemoUser()">
+                            Fill Demo Customer (user@poojamart.com)
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline" onclick="fillDemoAdmin()">
+                            Fill Demo Admin (admin@poojamart.com)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

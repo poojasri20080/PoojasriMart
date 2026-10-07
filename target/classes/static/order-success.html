@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed Successfully - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .success-card {
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-subtle);
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .check-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            color: var(--flipkart-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 20px;
+            animation: bounceIn 0.5s ease;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .order-id-badge {
+            background: #f1f3f6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin: 12px 0 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+            <div style="margin-left:auto;">
+                <a href="orders.html" class="nav-item-link">My Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="success-card">
+            <div class="check-circle">✓</div>
+            <h1 style="font-size: 24px; font-weight: 800; color: #212121; margin-bottom: 6px;">Order Placed Successfully!</h1>
+            <p style="color: #878787; font-size: 14px;">Thank you for shopping with PoojaMart Toys. Your kids will love this!</p>
+
+            <div class="order-id-badge" id="success-order-num">
+                Order ID: Loading...
+            </div>
+
+            <div style="background: #fafafa; border: 1px solid #eee; border-radius: 4px; padding: 18px; text-align: left; margin-bottom: 24px; font-size: 13px; line-height: 1.6;">
+                <div>📦 <strong>Order Status:</strong> Placed & Processing</div>
+                <div>🚚 <strong>Estimated Delivery:</strong> Within 3 - 4 Days</div>
+                <div>📧 <strong>Confirmation:</strong> Order confirmation email sent to your registered address.</div>
+            </div>
+
+            <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                <a href="orders.html" class="btn btn-primary" style="padding: 12px 24px;">Track Order ➔</a>
+                <a href="products.html" class="btn btn-outline" style="padding: 12px 24px;">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const orderNum = params.get('orderNumber');
+            const el = document.getElementById('success-order-num');
+            if (orderNum && el) {
+                el.textContent = `Order ID: ${orderNum}`;
+            }
+        });
+    </script>
+</body>
+</html>

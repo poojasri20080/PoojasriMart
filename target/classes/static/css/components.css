@@ -1,0 +1,418 @@
+/* Product Card - Flipkart Style */
+.product-card {
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: var(--transition);
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.product-badge-group {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 2;
+}
+
+.product-img-wrapper {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.product-img-wrapper img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img-wrapper img {
+    transform: scale(1.04);
+}
+
+.product-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 40px;
+    line-height: 1.4;
+}
+
+.product-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.rating-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.product-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.current-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.original-price {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: line-through;
+}
+
+.discount-tag {
+    font-size: 13px;
+    color: var(--flipkart-green);
+    font-weight: 700;
+}
+
+.delivery-tag {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.delivery-tag span {
+    color: var(--flipkart-green);
+    font-weight: 600;
+}
+
+.product-card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+}
+
+/* Sections */
+.section-block {
+    background: #ffffff;
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin: 16px 0;
+    box-shadow: var(--shadow-subtle);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 12px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-action-btn {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-blue);
+    cursor: pointer;
+}
+.section-action-btn:hover {
+    text-decoration: underline;
+}
+
+/* Product Grid */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* Hero Carousel */
+.hero-banner-slider {
+    position: relative;
+    margin: 16px 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: #0d1b2a;
+    box-shadow: var(--shadow-subtle);
+}
+
+.hero-slide {
+    display: none;
+    padding: 40px;
+    min-height: 280px;
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    align-items: center;
+}
+
+.hero-slide.active {
+    display: flex;
+}
+
+.hero-slide-content {
+    max-width: 550px;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(4px);
+    padding: 28px;
+    border-radius: var(--radius-md);
+}
+
+.hero-slide-content h2 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.hero-slide-content p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #f0f0f0;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: none;
+    color: #212121;
+    width: 40px;
+    height: 70px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+.slider-btn.prev {
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.slider-btn.next {
+    right: 0;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Feature Highlights Strip */
+.features-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.feature-box {
+    background: #ffffff;
+    padding: 16px 20px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: var(--shadow-subtle);
+}
+
+.feature-icon {
+    font-size: 30px;
+}
+
+.feature-text h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.feature-text p {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Breadcrumb */
+.breadcrumb-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.breadcrumb-nav a {
+    color: var(--text-secondary);
+}
+
+.breadcrumb-nav a:hover {
+    color: var(--primary-blue);
+}
+
+.breadcrumb-nav span.current {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Tracking Stepper (Flipkart style) */
+.order-tracking-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0;
+    position: relative;
+}
+
+.stepper-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.stepper-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.stepper-step.completed .stepper-circle {
+    background: var(--flipkart-green);
+}
+
+.stepper-step.active .stepper-circle {
+    background: var(--primary-blue);
+    box-shadow: 0 0 0 4px rgba(40,116,240,0.2);
+}
+
+.stepper-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.stepper-step.completed .stepper-label,
+.stepper-step.active .stepper-label {
+    color: var(--text-primary);
+}
+
+.stepper-line {
+    position: absolute;
+    top: 14px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.stepper-progress {
+    height: 100%;
+    background: var(--flipkart-green);
+    transition: width 0.4s ease;
+}
+
+/* Modal Window */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.modal-card {
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid #eee;
+}

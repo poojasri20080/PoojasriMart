@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller & Admin Dashboard - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Admin</span></span>
+                <span class="brand-tagline">Seller <span>Hub ★</span></span>
+            </a>
+            <div style="margin-left:auto; display:flex; align-items:center; gap:16px;">
+                <a href="index.html" class="nav-item-link" target="_blank">🌐 View Store</a>
+                <button class="btn btn-sm btn-outline" onclick="handleLogout()" style="color:#fff;border-color:#fff;">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="admin-brand">⚙️ ADMIN CONTROL</div>
+            <div class="admin-nav-item active" id="btn-tab-dashboard" onclick="showAdminTab('dashboard')">
+                📊 Dashboard & KPIs
+            </div>
+            <div class="admin-nav-item" id="btn-tab-products" onclick="showAdminTab('products')">
+                🧸 Manage Products (50+)
+            </div>
+            <div class="admin-nav-item" id="btn-tab-orders" onclick="showAdminTab('orders')">
+                📦 Manage Orders
+            </div>
+            <div class="admin-nav-item" id="btn-tab-users" onclick="showAdminTab('users')">
+                👥 Customer Directory
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="admin-main">
+
+            <!-- TAB 1: Dashboard & KPIs -->
+            <div class="admin-tab-content" id="tab-dashboard">
+                <h2 style="margin-bottom:16px;font-size:20px;font-weight:700;">Performance Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card card-revenue">
+                        <div class="stat-label">Total Revenue</div>
+                        <div class="stat-value" id="stat-revenue">₹0</div>
+                    </div>
+                    <div class="stat-card card-orders">
+                        <div class="stat-label">Total Orders</div>
+                        <div class="stat-value" id="stat-orders">0</div>
+                    </div>
+                    <div class="stat-card card-products">
+                        <div class="stat-label">Active Products</div>
+                        <div class="stat-value" id="stat-products">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Registered Users</div>
+                        <div class="stat-value" id="stat-users">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Pending Orders</div>
+                        <div class="stat-value" id="stat-pending">0</div>
+                    </div>
+                    <div class="stat-card card-lowstock">
+                        <div class="stat-label">Low Stock Toys (≤5)</div>
+                        <div class="stat-value" id="stat-lowstock">0</div>
+                    </div>
+                </div>
+
+                <div class="admin-table-card">
+                    <h3 style="font-size:16px;font-weight:700;margin-bottom:12px;">Quick Action Tips</h3>
+                    <p style="font-size:13px;color:#555;line-height:1.6;">
+                        • Use the <strong>Manage Products</strong> tab to add new toy items, update prices, stock counts, and realistic photos.<br>
+                        • Use the <strong>Manage Orders</strong> tab to update the fulfillment workflow from <code>PLACED</code> to <code>SHIPPED</code> and <code>DELIVERED</code>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TAB 2: Manage Products -->
+            <div class="admin-tab-content" id="tab-products" style="display:none;">
+                <div class="admin-table-card">
+                    <div class="admin-table-header">
+                        <div>
+                            <h2 style="font-size:18px;font-weight:700;">Toy Product Inventory</h2>
+                            <p style="font-size:12px;color:#878787;">Manage catalog of 50+ realistic toys</p>
+                        </div>
+                        <div style="display:flex;gap:10px;">
+                            <input type="text" id="admin-product-search" placeholder="Search product name..." oninput="searchAdminProducts()" style="padding:8px 12px;border:1px solid #ccc;border-radius:4px;font-size:13px;width:240px;">
+                            <button class="btn btn-primary" onclick="openAddProductModal()">+ Add New Toy</button>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product Details</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Rating</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-table-body">
+                                <tr><td colspan="7" style="text-align:center;">Loading products...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Manage Orders -->
+            <div class="admin-tab-content" id="tab-orders" style="display:none;">
+                <div class="admin-table-card">
+                    <div class="admin-table-header">
+                        <div>
+                            <h2 style="font-size:18px;font-weight:700;">Customer Orders Fulfillment</h2>
+                            <p style="font-size:12px;color:#878787;">Update shipment tracking statuses</p>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Payment</th>
+                                    <th>Status Workflow</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-orders-table-body">
+                                <tr><td colspan="6" style="text-align:center;">Loading orders...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Customer Directory -->
+            <div class="admin-tab-content" id="tab-users" style="display:none;">
+                <div class="admin-table-card">
+                    <div class="admin-table-header">
+                        <div>
+                            <h2 style="font-size:18px;font-weight:700;">Registered Customers</h2>
+                            <p style="font-size:12px;color:#878787;">User directory and roles</p>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Location</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-table-body">
+                                <tr><td colspan="6" style="text-align:center;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Add/Edit Product Modal Dialog -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="product-modal-title">Add New Toy Product</h3>
+                <button class="modal-close-btn" onclick="closeProductModal()">&times;</button>
+            </div>
+            <form id="product-crud-form" onsubmit="handleSaveProduct(event)">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label>Product Name *</label>
+                            <input type="text" id="p-name" required placeholder="e.g. 4WD All-Terrain Monster Truck">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Sale Price (₹) *</label>
+                            <input type="number" id="p-price" step="0.01" required placeholder="999">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Original Price (₹) (Optional for Discount)</label>
+                            <input type="number" id="p-orig-price" step="0.01" placeholder="1499">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Stock Quantity *</label>
+                            <input type="number" id="p-stock" required placeholder="50">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select id="product-form-category" required></select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Realistic Product Image URL (High-res Unsplash photo) *</label>
+                            <input type="url" id="p-img" required placeholder="https://images.unsplash.com/...">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                            <input type="text" id="p-brand" placeholder="e.g. SpeedMasters, HugBuddy">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Recommended Age Group</label>
+                            <input type="text" id="p-age" placeholder="e.g. 4+ Years, 0+ Months">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Description *</label>
+                            <textarea id="p-desc" rows="3" required placeholder="Detailed description of features and safety..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Specifications (separated with |)</label>
+                            <input type="text" id="p-specs" placeholder="Material: ABS Plastic | Scale: 1:24 | Battery: 2xAA">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" id="p-featured"> Featured</label>
+                                <label><input type="checkbox" id="p-bestseller"> Best Seller</label>
+                                <label><input type="checkbox" id="p-newarrival"> New Arrival</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeProductModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

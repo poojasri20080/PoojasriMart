@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Details - PoojaMart Toys</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .product-detail-layout {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 30px;
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            box-shadow: var(--shadow-subtle);
+            margin-top: 10px;
+        }
+
+        /* Image Gallery */
+        .gallery-wrapper {
+            position: sticky;
+            top: 90px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .main-img-box {
+            width: 100%;
+            height: 420px;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fafafa;
+        }
+
+        .main-img-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .main-img-box:hover img {
+            transform: scale(1.08);
+        }
+
+        .thumbnails-row {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+
+        .thumb-box {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            flex-shrink: 0;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb-box.active {
+            border-color: var(--primary-blue);
+        }
+
+        .thumb-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+
+        .action-buttons-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        /* Info Section */
+        .detail-brand-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .detail-heading {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 6px 0 12px;
+            line-height: 1.4;
+        }
+
+        .rating-strip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .detail-pricing {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin: 16px 0;
+            padding: 12px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .price-big {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .price-orig-big {
+            font-size: 16px;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .discount-big {
+            font-size: 16px;
+            color: var(--flipkart-green);
+            font-weight: 700;
+        }
+
+        /* Offers */
+        .offers-box {
+            margin: 16px 0;
+        }
+
+        .offers-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .offer-item {
+            font-size: 13px;
+            color: #212121;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .offer-item span.tag {
+            color: var(--flipkart-green);
+            font-weight: 700;
+        }
+
+        /* Specifications Table */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .spec-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .spec-label {
+            color: var(--text-secondary);
+            width: 35%;
+            font-weight: 500;
+        }
+
+        .spec-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .product-detail-layout {
+                grid-template-columns: 1fr;
+            }
+            .gallery-wrapper {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+
+            <!-- Search Bar -->
+            <div class="search-wrapper">
+                <form class="search-form" id="global-search-form">
+                    <input type="text" id="global-search-input" class="search-input" placeholder="Search for toys, brands, categories..." autocomplete="off">
+                    <button type="submit" class="search-btn">🔍</button>
+                </form>
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div id="header-auth-container">
+                    <a href="login.html" class="nav-link-btn">Login</a>
+                </div>
+
+                <a href="cart.html" class="nav-item-link">
+                    <div class="cart-icon-wrapper">
+                        <span>🛒 Cart</span>
+                        <span class="cart-badge" style="display:none;">0</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb-nav">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <a href="products.html" id="bc-category">Toys</a>
+            <span>›</span>
+            <span class="current" id="bc-title">Loading...</span>
+        </nav>
+
+        <div id="product-detail-container">
+            <div class="product-detail-layout">
+                <!-- Left: Gallery & CTA Buttons -->
+                <div class="gallery-wrapper">
+                    <div class="main-img-box">
+                        <img id="main-product-img" src="" alt="Toy Photo">
+                    </div>
+                    <div class="thumbnails-row" id="product-thumbnails"></div>
+
+                    <div class="action-buttons-row">
+                        <button class="btn btn-cart" id="btn-add-to-cart" onclick="handleDetailAddToCart()">
+                            🛒 ADD TO CART
+                        </button>
+                        <button class="btn btn-buy" id="btn-buy-now" onclick="handleBuyNow()">
+                            ⚡ BUY NOW
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Product Specifications & Details -->
+                <div class="product-info-wrapper">
+                    <div class="detail-brand-name" id="detail-brand"></div>
+                    <h1 class="detail-heading" id="detail-title"></h1>
+
+                    <div class="rating-strip">
+                        <span class="badge-rating" id="detail-rating">4.5 ★</span>
+                        <span class="rating-count" id="detail-reviews">120 Ratings & Reviews</span>
+                        <span class="fa-badge">✓ Assured</span>
+                        <span id="stock-status-badge" style="margin-left:auto;font-size:13px;"></span>
+                    </div>
+
+                    <div class="detail-pricing">
+                        <span class="price-big" id="detail-price"></span>
+                        <span class="price-orig-big" id="detail-original-price"></span>
+                        <span class="discount-big" id="detail-discount"></span>
+                    </div>
+
+                    <!-- Available Offers -->
+                    <div class="offers-box">
+                        <h4 class="offers-title">Available Offers:</h4>
+                        <div class="offer-item">
+                            <span class="tag">🏷️ Bank Offer:</span>
+                            <span>5% Unlimited Cashback on PoojaMart Axis Bank Credit Card</span>
+                        </div>
+                        <div class="offer-item">
+                            <span class="tag">🏷️ Special Price:</span>
+                            <span>Get extra 10% off on purchase of 2 or more toy sets (price inclusive)</span>
+                        </div>
+                        <div class="offer-item">
+                            <span class="tag">🏷️ Partner Offer:</span>
+                            <span>Free gift wrap packaging available on checkout</span>
+                        </div>
+                    </div>
+
+                    <!-- Pincode Delivery Check -->
+                    <div style="background:#fafafa;padding:14px;border-radius:4px;margin:18px 0;border:1px solid #eee;">
+                        <label style="font-size:13px;font-weight:700;display:block;margin-bottom:6px;">Delivery Check:</label>
+                        <div style="display:flex;gap:8px;max-width:320px;">
+                            <input type="text" id="pincode-input" placeholder="Enter 6-digit Pincode" maxlength="6" style="padding:6px 10px;border:1px solid #ccc;border-radius:2px;flex:1;">
+                            <button class="btn btn-primary btn-sm" onclick="checkPincode()">Check</button>
+                        </div>
+                        <div id="pincode-result" style="margin-top:6px;font-size:12px;"></div>
+                    </div>
+
+                    <!-- Description -->
+                    <div style="margin:20px 0;">
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:8px;">Description</h3>
+                        <p id="detail-description" style="color:#555;font-size:14px;line-height:1.6;"></p>
+                    </div>
+
+                    <!-- Specifications Table -->
+                    <div style="margin:20px 0;">
+                        <h3 style="font-size:16px;font-weight:700;margin-bottom:8px;">Specifications</h3>
+                        <table class="spec-table" id="specifications-table"></table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products Section -->
+            <section class="section-block" style="margin-top:24px;">
+                <div class="section-header">
+                    <h2 class="section-title">Similar Toys You Might Like</h2>
+                </div>
+                <div class="products-grid" id="related-products-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/product-detail.js"></script>
+</body>
+</html>
