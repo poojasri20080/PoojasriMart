@@ -3,126 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoojaMart - Online Toy Store</title>
+    <title>PoojaMart Toys - India's Favorite Online Toy Store</title>
+    <meta name="description" content="Shop 50+ premium, non-toxic toy cars, teddy bears, educational STEM kits, puzzles and baby toys at PoojaMart with instant AI recommendation!">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/ai-assistant.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Arial, sans-serif; }
-        body { background-color: #f4f7f6; color: #333; }
-        header { background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .logo { font-size: 1.5rem; font-weight: bold; color: #f39c12; }
-        .cart-btn { background: #e67e22; border: none; color: white; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; }
-        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-        .hero { text-align: center; margin-bottom: 2rem; }
-        .hero h1 { color: #2c3e50; margin-bottom: 0.5rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-        .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; padding: 1rem; }
-        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
-        .card h3 { margin: 0.8rem 0 0.4rem; color: #2c3e50; }
-        .card .price { color: #27ae60; font-size: 1.2rem; font-weight: bold; margin-bottom: 0.8rem; }
-        .card button { background: #3498db; color: white; border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
-        .card button:hover { background: #2980b9; }
-        
-        /* Modal */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 2rem; border-radius: 10px; max-width: 450px; width: 90%; position: relative; }
-        .cart-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
-        .total { font-size: 1.2rem; font-weight: bold; text-align: right; margin-top: 1rem; color: #2c3e50; }
-        .checkout-btn { background: #27ae60; color: white; border: none; width: 100%; padding: 0.8rem; border-radius: 5px; margin-top: 1rem; font-size: 1rem; font-weight: bold; cursor: pointer; }
-        .close-btn { background: #e74c3c; color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; position: absolute; top: 15px; right: 15px; cursor: pointer; }
+        .age-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .age-card {
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #eee;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .age-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary-blue);
+        }
+
+        .age-card-icon {
+            font-size: 38px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #f0f5ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .age-card-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .age-card-info p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .ai-banner-strip {
+            background: linear-gradient(135deg, #1e5ac0 0%, #2874f0 50%, #00a8ff 100%);
+            color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px 32px;
+            margin: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(40, 116, 240, 0.25);
+        }
+
+        .ai-banner-content h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-banner-content p {
+            font-size: 14px;
+            color: #e2e8f0;
+            max-width: 650px;
+        }
+
+        .ai-banner-btn {
+            background: #ffe500;
+            color: #172337;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+            white-space: nowrap;
+        }
+
+        .ai-banner-btn:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .ai-banner-strip {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">🧸 PoojaMart Toys</div>
-        <button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+    <!-- Flipkart-style Top Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="brand-logo">
+                <span class="brand-title">PoojaMart <span>Toys</span></span>
+                <span class="brand-tagline">Explore <span>Plus ★</span></span>
+            </a>
+
+            <!-- Search Bar with Autocomplete Suggestions -->
+            <div class="search-wrapper">
+                <form class="search-form" id="global-search-form">
+                    <input type="text" id="global-search-input" class="search-input" placeholder="Search for toys, brands, teddy bears, RC cars, puzzles..." autocomplete="off">
+                    <button type="submit" class="search-btn" title="Search">🔍</button>
+                </form>
+                <div class="search-suggestions" id="search-suggestions"></div>
+            </div>
+
+            <!-- Header Actions -->
+            <div class="header-actions">
+                <div id="header-auth-container">
+                    <a href="login.html" class="nav-link-btn">Login</a>
+                </div>
+
+                <a href="orders.html" class="nav-item-link" title="My Orders">
+                    <span>📦 Orders</span>
+                </a>
+
+                <a href="cart.html" class="nav-item-link cart-icon-wrapper" title="Cart">
+                    <span>🛒 Cart</span>
+                    <span class="cart-badge" id="nav-cart-badge">0</span>
+                </a>
+            </div>
+        </div>
     </header>
 
+    <!-- Category Nav Strip below Navbar -->
+    <div class="category-nav-bar">
+        <div class="category-nav-container" id="category-nav-strip">
+            <!-- Dynamic Category items populated by app.js -->
+        </div>
+    </div>
+
     <div class="container">
-        <div class="hero">
-            <h1>Welcome to PoojaMart Kids World</h1>
-            <p>Explore & Order Best Toys Online!</p>
-        </div>
 
-        <div class="grid" id="product-list"></div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content">
-            <button class="close-btn" onclick="closeCart()">X</button>
-            <h2>Shopping Cart</h2>
-            <div id="cart-items" style="margin-top: 1rem;"></div>
-            <div class="total">Total: ₹<span id="total-price">0</span></div>
-            <button class="checkout-btn" onclick="placeOrder()">Place Order Now 🎉</button>
-        </div>
-    </div>
-
-    <script>
-        const products = [
-            { id: 1, name: "Remote Control Car", price: 899, img: "https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=400" },
-            { id: 2, name: "Teddy Bear Soft Toy", price: 499, img: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=400" },
-            { id: 3, name: "Building Blocks", price: 650, img: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400" },
-            { id: 4, name: "Kids Musical Piano", price: 1200, img: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=400" }
-        ];
-
-        let cart = [];
-
-        function renderProducts() {
-            const list = document.getElementById('product-list');
-            list.innerHTML = products.map(p => `
-                <div class="card">
-                    <img src="${p.img}" alt="${p.name}">
-                    <h3>${p.name}</h3>
-                    <div class="price">₹${p.price}</div>
-                    <button onclick="addToCart(${p.id})">Add to Cart</button>
+        <!-- Hero Carousel Banner -->
+        <div class="hero-banner-slider">
+            <!-- Slide 1 -->
+            <div class="hero-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1594787318286-3d835c1d207f?w=1200&auto=format&fit=crop&q=80');">
+                <div class="hero-slide-content">
+                    <h2>🏎️ Mega Toy Carnival!</h2>
+                    <p>Up to 50% OFF on 4WD Remote Control Cars, Die-cast GT Supercars & Monster Trucks. High speed & rechargeable thrills!</p>
+                    <a href="products.html?categoryId=3" class="btn btn-buy">Shop RC Cars ➔</a>
                 </div>
-            `).join('');
-        }
+            </div>
 
-        function addToCart(id) {
-            const item = products.find(p => p.id === id);
-            cart.push(item);
-            updateCart();
-            alert(`${item.name} added to cart!`);
-        }
+            <!-- Slide 2 -->
+            <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?w=1200&auto=format&fit=crop&q=80');">
+                <div class="hero-slide-content">
+                    <h2>🔬 Spark Curiosity & STEM Minds</h2>
+                    <p>Creative engineering blocks, 1200x science microscopes, solar planetariums, and 3D wooden mechanical clocks.</p>
+                    <a href="products.html?categoryId=5" class="btn btn-buy">Explore STEM Toys ➔</a>
+                </div>
+            </div>
 
-        function updateCart() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const cartItems = document.getElementById('cart-items');
-            if(cart.length === 0) {
-                cartItems.innerHTML = "<p>Cart is empty!</p>";
-            } else {
-                cartItems.innerHTML = cart.map(item => `
-                    <div class="cart-item">
-                        <span>${item.name}</span>
-                        <span>₹${item.price}</span>
+            <!-- Slide 3 -->
+            <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=1200&auto=format&fit=crop&q=80');">
+                <div class="hero-slide-content">
+                    <h2>🧸 Soft Huggable Plush Toys</h2>
+                    <p>Giant 4-foot cuddle teddy bears, gentle silicone baby teethers, and fluffy plush pandas crafted with 100% hypoallergenic cotton.</p>
+                    <a href="products.html?categoryId=1" class="btn btn-buy">View Teddy Bears ➔</a>
+                </div>
+            </div>
+
+            <button class="slider-btn prev" aria-label="Previous slide">&#10094;</button>
+            <button class="slider-btn next" aria-label="Next slide">&#10095;</button>
+        </div>
+
+        <!-- Trust Badges Features Strip -->
+        <div class="features-strip">
+            <div class="feature-box">
+                <span class="feature-icon">🛡️</span>
+                <div class="feature-text">
+                    <h5>100% Non-Toxic</h5>
+                    <p>BIS Certified & Child Safe</p>
+                </div>
+            </div>
+            <div class="feature-box">
+                <span class="feature-icon">🚚</span>
+                <div class="feature-text">
+                    <h5>Free Fast Delivery</h5>
+                    <p>On all orders above ₹499</p>
+                </div>
+            </div>
+            <div class="feature-box">
+                <span class="feature-icon">🔄</span>
+                <div class="feature-text">
+                    <h5>7 Days Easy Returns</h5>
+                    <p>Hassle-free replacements</p>
+                </div>
+            </div>
+            <div class="feature-box">
+                <span class="feature-icon">🤖</span>
+                <div class="feature-text">
+                    <h5>AI Toy Advisor</h5>
+                    <p>Instant smart gift guidance</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive AI Feature Spotlight Banner -->
+        <div class="ai-banner-strip">
+            <div class="ai-banner-content">
+                <h3><span>🤖</span> Meet PoojaMart AI Toy Advisor</h3>
+                <p>Confused about what toy is best for a child's birthday or learning milestone? Tell our AI the child's age and your budget, and get instant recommendations!</p>
+            </div>
+            <button class="ai-banner-btn" onclick="document.getElementById('ai-launcher-btn').click()">
+                Chat with AI Advisor ✨
+            </button>
+        </div>
+
+        <!-- Section 1: Featured Toys -->
+        <div class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">🔥 Deals of the Day & Featured Toys</h2>
+                <a href="products.html?filter=featured" class="section-action-btn">View All ➔</a>
+            </div>
+            <div class="products-grid" id="featured-products-container">
+                <div style="padding:20px;color:#878787;">Loading featured toys...</div>
+            </div>
+        </div>
+
+        <!-- Curated Age-Wise Shopping Grid -->
+        <div class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">🎂 Shop Toys by Age Group</h2>
+            </div>
+            <div class="age-strip">
+                <div class="age-card" onclick="window.location.href='products.html?categoryId=9'">
+                    <div class="age-card-icon">👶</div>
+                    <div class="age-card-info">
+                        <h4>0 - 2 Years</h4>
+                        <p>Silicone Teethers, Sensory Gyms & Rattles</p>
                     </div>
-                `).join('');
-            }
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('total-price').innerText = total;
-        }
+                </div>
+                <div class="age-card" onclick="window.location.href='products.html?categoryId=4'">
+                    <div class="age-card-icon">🧱</div>
+                    <div class="age-card-info">
+                        <h4>3 - 5 Years</h4>
+                        <p>Building Blocks, Animal Sets & Toy Trains</p>
+                    </div>
+                </div>
+                <div class="age-card" onclick="window.location.href='products.html?categoryId=3'">
+                    <div class="age-card-icon">🏎️</div>
+                    <div class="age-card-info">
+                        <h4>6 - 8 Years</h4>
+                        <p>Remote Control Cars & Action Heroes</p>
+                    </div>
+                </div>
+                <div class="age-card" onclick="window.location.href='products.html?categoryId=5'">
+                    <div class="age-card-icon">🔬</div>
+                    <div class="age-card-info">
+                        <h4>9+ Years</h4>
+                        <p>STEM Science Kits, Coding & 3D Puzzles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        function openCart() {
-            document.getElementById('cart-modal').style.display = 'flex';
-        }
+        <!-- Section 2: Best Sellers -->
+        <div class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">⭐ Customer Favorites & Best Sellers</h2>
+                <a href="products.html?filter=bestseller" class="section-action-btn">View All ➔</a>
+            </div>
+            <div class="products-grid" id="bestseller-products-container">
+                <div style="padding:20px;color:#878787;">Loading best sellers...</div>
+            </div>
+        </div>
 
-        function closeCart() {
-            document.getElementById('cart-modal').style.display = 'none';
-        }
+        <!-- Section 3: New Arrivals -->
+        <div class="section-block">
+            <div class="section-header">
+                <h2 class="section-title">✨ Fresh New Arrivals</h2>
+                <a href="products.html?filter=new" class="section-action-btn">View All ➔</a>
+            </div>
+            <div class="products-grid" id="new-arrivals-container">
+                <div style="padding:20px;color:#878787;">Loading new arrivals...</div>
+            </div>
+        </div>
 
-        function placeOrder() {
-            if(cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-            alert("🎉 Order Placed Successfully! Thank you for shopping at PoojaMart.");
-            cart = [];
-            updateCart();
-            closeCart();
-        }
+    </div>
 
-        renderProducts();
-    </script>
+    <!-- Flipkart-style Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-col">
+                <h4>About PoojaMart Toys</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">All Toys Catalog</a></li>
+                    <li><a href="admin.html">Seller & Admin Hub</a></li>
+                    <li><a href="mailto:support@poojamart.com">Careers & Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Help</h4>
+                <ul>
+                    <li><a href="orders.html">Track Order</a></li>
+                    <li><a href="cart.html">Shopping Cart</a></li>
+                    <li><a href="javascript:void(0)" onclick="document.getElementById('ai-launcher-btn').click()">AI Toy Advisor</a></li>
+                    <li><a href="login.html">Login / Register</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Consumer Policy</h4>
+                <ul>
+                    <li><a href="javascript:void(0)">7-Day Replacement Policy</a></li>
+                    <li><a href="javascript:void(0)">Child Safety & Non-Toxic Standards</a></li>
+                    <li><a href="javascript:void(0)">Terms of Use</a></li>
+                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Registered Office</h4>
+                <p style="color:#c2c2c2;line-height:1.6;font-size:12px;">
+                    PoojaMart Toys India Pvt Ltd,<br>
+                    MG Road, Lotus Tower,<br>
+                    Chennai, Tamil Nadu - 600001<br>
+                    Contact: +91 99401 12233<br>
+                    Email: support@poojamart.com
+                </p>
+            </div>
+        </div>
+        <div style="max-width:1280px;margin:0 auto;padding:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;color:#878787;font-size:11px;">
+            <div>© 2026 PoojaMart Toys. All rights reserved.</div>
+            <div style="display:flex;gap:12px;font-size:14px;">
+                💳 Cash on Delivery &bull; UPI &bull; NetBanking &bull; Cards Accepted
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/ai-assistant.js"></script>
 </body>
 </html>

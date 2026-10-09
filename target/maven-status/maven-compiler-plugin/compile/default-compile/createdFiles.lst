@@ -5,9 +5,9 @@ com\poojamart\model\CartItem.class
 com\poojamart\repository\UserRepository.class
 com\poojamart\service\AdminService.class
 com\poojamart\service\CategoryService.class
+com\poojamart\dto\AiChatResponse.class
 com\poojamart\repository\CartItemRepository.class
 com\poojamart\service\CartService.class
-com\poojamart\controller\UserController.class
 com\poojamart\model\Product.class
 com\poojamart\controller\CategoryController.class
 com\poojamart\controller\AuthController.class
@@ -15,6 +15,7 @@ com\poojamart\controller\ProductController.class
 com\poojamart\dto\AuthRequest.class
 com\poojamart\repository\ProductRepository.class
 com\poojamart\dto\DashboardStatsDto.class
+com\poojamart\service\AiToyAdvisorService.class
 com\poojamart\dto\RegisterRequest.class
 com\poojamart\repository\CategoryRepository.class
 com\poojamart\repository\OrderItemRepository.class
@@ -24,13 +25,14 @@ com\poojamart\service\DataInitializerService.class
 com\poojamart\service\UserService.class
 com\poojamart\dto\AddToCartRequest.class
 com\poojamart\model\User.class
+com\poojamart\controller\AiToyAdvisorController.class
 com\poojamart\service\ProductService.class
+com\poojamart\dto\AiChatRequest.class
 com\poojamart\repository\OrderRepository.class
 com\poojamart\dto\OrderRequest.class
 com\poojamart\model\Order.class
 com\poojamart\service\OrderService.class
 com\poojamart\dto\OrderRequest$OrderItemDto.class
-com\poojamart\config\CorsConfig.class
 com\poojamart\controller\AdminController.class
 com\poojamart\PoojaMartApplication.class
 com\poojamart\controller\CartController.class

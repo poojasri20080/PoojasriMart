@@ -8,6 +8,7 @@ C:\PoojaMart\src\main\java\com\poojamart\repository\CartItemRepository.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\AuthRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\OrderRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\service\CategoryService.java
+C:\PoojaMart\src\main\java\com\poojamart\dto\AiChatRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\controller\OrderController.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\AddToCartRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\model\OrderItem.java
@@ -25,6 +26,8 @@ C:\PoojaMart\src\main\java\com\poojamart\service\ProductService.java
 C:\PoojaMart\src\main\java\com\poojamart\controller\ProductController.java
 C:\PoojaMart\src\main\java\com\poojamart\service\CartService.java
 C:\PoojaMart\src\main\java\com\poojamart\model\User.java
+C:\PoojaMart\src\main\java\com\poojamart\controller\AiToyAdvisorController.java
+C:\PoojaMart\src\main\java\com\poojamart\dto\AiChatResponse.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\UpdateCartRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\service\UserService.java
 C:\PoojaMart\src\main\java\com\poojamart\PoojaMartApplication.java
@@ -32,5 +35,6 @@ C:\PoojaMart\src\main\java\com\poojamart\dto\OrderStatusUpdateRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\RegisterRequest.java
 C:\PoojaMart\src\main\java\com\poojamart\controller\AuthController.java
 C:\PoojaMart\src\main\java\com\poojamart\dto\DashboardStatsDto.java
+C:\PoojaMart\src\main\java\com\poojamart\service\AiToyAdvisorService.java
 C:\PoojaMart\src\main\java\com\poojamart\model\Product.java
 C:\PoojaMart\src\main\java\com\poojamart\controller\CartController.java

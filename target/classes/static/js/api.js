@@ -1,7 +1,10 @@
 /**
  * PoojaMart Toys - Unified API Client & State Management
  */
-const API_BASE = '/api';
+// Automatically route API requests to Spring Boot backend (port 8080) if accessed via Live Server or file://
+const API_BASE = (window.location.port && window.location.port !== '8080') || window.location.protocol === 'file:'
+    ? 'http://localhost:8080/api'
+    : '/api';
 
 const Storage = {
     getUser: () => {

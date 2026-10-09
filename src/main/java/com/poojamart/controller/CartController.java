@@ -12,7 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cart")
-@CrossOrigin(origins = "*")
+@CrossOrigin(originPatterns = "*")
 public class CartController {
 
     private final CartService cartService;
